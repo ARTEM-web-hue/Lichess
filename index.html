@@ -1,80 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://t.me/Sborticinf_bot ">
+    <meta charset="UTF-8"
     <title>Секретная анимация</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background-color: #000;
-        }
-
-        .letter {
-            position: absolute;
-            top: -20px;
-            color: #0f0;
-            font-size: 24px;
-            font-family: monospace;
-            animation: fall linear;
-        }
-
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-    </style>
 </head>
 <body>
-    <script>
-        let keysPressed = [];
-        const combo = ['z', 'q'];
-        let comboTimeout = null;
-
-        document.addEventListener('keydown', function(e) {
-            // Преобразуем ключ в нижний регистр
-            const key = e.key.toLowerCase();
-
-            if (combo.includes(key)) {
-                // Если это первый символ или последовательность продолжается
-                if (keysPressed.length === 0 && key === combo[0]) {
-                    keysPressed.push(key);
-                    comboTimeout = setTimeout(() => {
-                        keysPressed = []; // Сброс если долго не нажали Q
-                    }, 1000); // Время между Z и Q (в миллисекундах)
-                } else if (keysPressed.length === 1 && key === combo[1]) {
-                    keysPressed.push(key);
-                    triggerAnimation();
-                    clearTimeout(comboTimeout);
-                    keysPressed = [];
-                } else {
-                    keysPressed = [];
-                }
-            } else {
-                keysPressed = [];
-            }
-        });
-
-        function triggerAnimation() {
-            const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            for (let i = 0; i < 200; i++) {
-                const span = document.createElement("span");
-                span.classList.add("letter");
-                span.textContent = letters[Math.floor(Math.random() * letters.length)];
-                span.style.left = Math.random() * window.innerWidth + "px";
-                span.style.animationDuration = (3 + Math.random() * 3) + "s";
-                span.style.opacity = Math.random();
-                document.body.appendChild(span);
-
-                // Удаляем элемент после анимации для чистоты DOM
-                span.addEventListener("animationend", () => {
-                    span.remove();
-                });
-            }
-        }
-    </script>
+<p>Sorry?</p><br><p>Нажми Z+Q</p>
 </body>
 </html>
