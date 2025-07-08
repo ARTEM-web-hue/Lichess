@@ -1,13 +1,3 @@
-// ==UserScript==
-// @name         Falling Letters Animation
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Падающие буквы при вводе комбинации клавиш
-// @author       You
-// @match        *://*/*
-// @grant        none
-// ==/UserScript==
-
 (function() {
     'use strict';
 
