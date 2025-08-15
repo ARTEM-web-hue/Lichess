@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Kristal_17 and frends</title>
+
+    <!-- Иконка сайта -->
+    <link rel="icon" type="image/png" sizes="512x512" href="png.png">
+
+    <!-- Общие стили -->
+    <style>
+        /* Общее оформление страницы */
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #57d2ff;
+        }
+
+        /* Навигационная панель */
+        .navbar {
+            display: flex;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-link {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: #1abc9c;
+        }
+
+        /* Контейнер для центрирования и структуры */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Заголовки */
+        h1 {
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Разные цвета для заголовков */
+        .shop-title {
+            background-color: #4CAF50;
+        }
+
+        .schedule-title {
+            background-color: #2c3e50;
+        }
+
+        .badge-title {
+            background-color: #8e44ad;
+        }
+
+        /* Стили таблицы */
+        table {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1em;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td {
+            font-weight: 500;
+        }
+
+        /* Стили расписания */
+        .schedule {
+            padding: 20px;
+        }
+
+        .day {
+            display: flex;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .day:last-child {
+            border-bottom: none;
+        }
+
+        .day:hover {
+            background-color: #f8f9fa;
+        }
+
+        .day-icon {
+            font-size: 24px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .day-content {
+            flex: 1;
+        }
+
+        .day-name {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+
+        .event-name {
+            font-size: 1.1em;
+            color: #e74c3c;
+            margin: 5px 0;
+        }
+
+        .time {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .rest, .dayoff {
+            color: #95a5a6;
+        }
+
+        .rest .event-name,
+        .dayoff .event-name {
+            color: #95a5a6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    <div class="navbar">
+        <a href="https://lichess.org/team/kristal_17-and-frends" target="_blank" class="nav-link">Клуб</a>
+        <a href="https://lichess.org/team/VORJQHXK/tournaments" target="_blank" class="nav-link">Турниры</a>
+    </div>
+
+    <!-- Магазин ролей -->
+    <div class="container">
+        <h1 class="shop-title">🛒 Магазин ролей</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Роль</th>
+                    <th>Цена (в Кристалмани)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Мл. Модератор</td>
+                    <td>2000</td>
+                </tr>
+                <tr>
+                    <td>Модератор</td>
+                    <td>3000</td>
+                </tr>
+                <tr>
+                    <td>Ст. Модератор</td>
+                    <td>6000</td>
+                </tr>
+                <tr>
+                    <td>Админ</td>
+                    <td>10 000 000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Наши звания -->
+    <div class="container">
+        <h1 class="badge-title">🎖️ Наши звания</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Звание</th>
+                    <th>Условия получения</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Крутой</td>
+                    <td>Зашёл</td>
+                </tr>
+                <tr>
+                    <td>Умный</td>
+                    <td>Выиграл 20 турниров (в 3-ке был)</td>
+                </tr>
+                <tr>
+                    <td>Богач I</td>
+                    <td>200 Кристалмани</td>
+                </tr>
+                <tr>
+                    <td>Богач II</td>
+                    <td>400 Кристалмани</td>
+                </tr>
+                <tr>
+                    <td>Богач III</td>
+                    <td>1000 Кристалмани</td>
+                </tr>
+                <tr>
+                    <td>Супер умный</td>
+                    <td>Выиграл 100 турниров (в 3-ке был)</td>
+                </tr>
+                <tr>
+                    <td>Гипер умный</td>
+                    <td>Выиграл 10 турниров (1 место) + 100 Кристалмани</td>
+                </tr>
+                <tr>
+                    <td>Мл. Модератор</td>
+                    <td>Сделал идею для клуба, 1300 Кристалмани, есть опыт админ-модерации</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Турнирное расписание -->
+    <div class="container">
+        <h1 class="schedule-title">🏆 Наше турнирное расписание</h1>
+        <div class="schedule">
+            <div class="day">
+                <div class="day-icon">📅</div>
+                <div class="day-content">
+                    <div class="day-name">Понедельник</div>
+                    <div class="event-name">Турнирище понедельника</div>
+                    <div class="time">11:00 (будет не всегда)</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-icon">⚔️</div>
+                <div class="day-content">
+                    <div class="day-name">Вторник</div>
+                    <div class="event-name">Вторничная арена</div>
+                    <div class="time">19:00</div>
+                </div>
+            </div>
+
+            <div class="day rest">
+                <div class="day-icon">😴</div>
+                <div class="day-content">
+                    <div class="day-name">Среда</div>
+                    <div class="event-name">Отдых</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-icon">🎯</div>
+                <div class="day-content">
+                    <div class="day-name">Четверг</div>
+                    <div class="event-name">Тренировочный четверг</div>
+                    <div class="time">18:00</div>
+                </div>
+            </div>
+
+            <div class="day rest">
+                <div class="day-icon">🛌</div>
+                <div class="day-content">
+                    <div class="day-name">Пятница</div>
+                    <div class="event-name">Отдых</div>
+                </div>
+            </div>
+
+            <div class="day dayoff">
+                <div class="day-icon">🎉</div>
+                <div class="day-content">
+                    <div class="day-name">Суббота</div>
+                    <div class="event-name">Выходной!! (Турнир)</div>
+                    <div class="time">16:00</div>
+                </div>
+            </div>
+
+            <div class="day">
+                <div class="day-icon">⛪</div>
+                <div class="day-content">
+                    <div class="day-name">Воскресенье</div>
+                    <div class="event-name">Воскресное воскресение</div>
+                    <div class="time">12:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
