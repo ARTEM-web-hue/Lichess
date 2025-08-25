@@ -164,6 +164,14 @@
             border: 1px solid #ff0000;
         }
 
+        .last-update {
+            text-align: center;
+            color: #00ffff;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            text-shadow: 0 0 5px #00ffff;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -201,38 +209,48 @@
                 </tbody>
             </table>
         </div>
+        <div id="last-update" class="last-update"></div>
     </div>
 
     <script>
+        let updateInterval;
+
         document.addEventListener('DOMContentLoaded', function() {
             const tableBody = document.getElementById('table-body');
             const loadingElement = document.getElementById('loading');
             const errorContainer = document.getElementById('error-container');
+            const lastUpdateElement = document.getElementById('last-update');
 
             // Очищаем контейнер ошибок
             errorContainer.innerHTML = '';
 
-            // Показываем индикатор загрузки
-            loadingElement.style.display = 'block';
+            // Функция для загрузки и обработки данных
+            function loadData() {
+                // Показываем индикатор загрузки
+                loadingElement.style.display = 'block';
+                errorContainer.innerHTML = '';
 
-            // Загружаем данные из файла data.txt
-            fetch('data.txt')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    processData(data);
-                    loadingElement.style.display = 'none';
-                })
-                .catch(error => {
-                    loadingElement.style.display = 'none';
-                    showError(`Ошибка загрузки файла: ${error.message}`);
-                    
-                    // Демонстрационные данные в случае ошибки
-                    const sampleData = `NeonMaster,Элита,15890,42
+                // Добавляем timestamp для предотвращения кэширования
+                fetch(`data.txt?t=${Date.now()}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        processData(data);
+                        loadingElement.style.display = 'none';
+                        // Обновляем время последнего обновления
+                        const now = new Date();
+                        lastUpdateElement.textContent = `Последнее обновление: ${now.toLocaleTimeString()}`;
+                    })
+                    .catch(error => {
+                        loadingElement.style.display = 'none';
+                        showError(`Ошибка загрузки файла: ${error.message}`);
+                        
+                        // Демонстрационные данные в случае ошибки
+                        const sampleData = `NeonMaster,Элита,15890,42
 CyberPunk,Легенда,12345,67
 DigitalGhost,Мастер,9876,35
 PixelWarrior,Эксперт,7654,58
@@ -240,9 +258,18 @@ QuantumLeap,Профи,5432,23
 ShadowNinja,Адепт,3210,47
 FutureGamer,Новичок,1000,15
 StarRunner,Ученик,2345,31`;
-                    
-                    processData(sampleData);
-                });
+                        
+                        processData(sampleData);
+                        const now = new Date();
+                        lastUpdateElement.textContent = `Последнее обновление: ${now.toLocaleTimeString()} (демо данные)`;
+                    });
+            }
+
+            // Начальная загрузка данных
+            loadData();
+
+            // Устанавливаем автообновление каждые 30 секунд
+            updateInterval = setInterval(loadData, 30000);
 
             function processData(data) {
                 try {
@@ -292,6 +319,13 @@ StarRunner,Ученик,2345,31`;
                 errorDiv.textContent = message;
                 errorContainer.appendChild(errorDiv);
             }
+
+            // Остановка автообновления при закрытии страницы
+            window.addEventListener('beforeunload', () => {
+                if (updateInterval) {
+                    clearInterval(updateInterval);
+                }
+            });
         });
     </script>
 </body>
