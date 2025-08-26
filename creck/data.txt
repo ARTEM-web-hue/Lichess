@@ -1,2 +1,2 @@
-atemmax,Новичок,84,1
+atemmax,Ноунейм,120,1
 shahmati_23,ATOM_GM, 146,1
