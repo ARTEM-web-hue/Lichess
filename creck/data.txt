@@ -4,4 +4,4 @@ Cucumber333,,2,1
 roma-provvalionokk,,12,1
 virus_exe-bot,BOT,12,1
 Goldterrificbaby,,74,2
-Feodor-Ryba,PeshkaChess_GM,,,
+Feodor-Ryba,PeshkaChess_GM,2,1,
