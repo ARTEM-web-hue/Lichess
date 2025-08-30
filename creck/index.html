@@ -189,6 +189,72 @@
     </style>
 </head>
 <body>
+    <style>
+    /* Стили для верхней панели */
+    .top-panel {
+        position: fixed; /* Фиксированное позиционирование */
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(90deg, #1a1a3a, #0a0a1a);
+        /* Неоновая рамка и тень */
+        border-bottom: 1px solid #00ffff;
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        padding: 10px 20px;
+        box-sizing: border-box;
+        z-index: 1000; /* Поверх всего */
+        display: flex;
+        justify-content: flex-end; /* Кнопка справа */
+    }
+
+    /* Стили для кнопки */
+    .balance-button {
+        background: linear-gradient(45deg, #00ffff, #0088ff);
+        color: #0a0a1a;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        text-decoration: none; /* Для ссылки */
+        display: inline-block; /* Для ссылки */
+        box-shadow: 0 0 5px #00ffff, 0 0 10px #0088ff;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+    }
+
+    .balance-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px #00ffff, 0 0 20px #0088ff;
+        background: linear-gradient(45deg, #0088ff, #00ffff);
+    }
+
+    .balance-button:active {
+        transform: scale(0.98);
+    }
+
+    /* Отступ для основного контента, чтобы панель не перекрывала */
+    .content-wrapper {
+        margin-top: 60px; /* Примерная высота панели */
+    }
+</style>
+
+<!-- Верхняя панель -->
+<div class="top-panel">
+    <a href="https://artem-web-hue.github.io/Lichess/creck/magazin/" class="balance-button">Балансы</a>
+</div>
+
+<!-- Основной контент (оберни в content-wrapper) -->
+<div class="content-wrapper">
+    <!-- Весь твой существующий body-контент сюда -->
+    <div class="container">
+        <h1 class="neon-glow">⚡ NEON SHOP</h1>
+        <p class="subtitle">Купи крутые штуки за бананы и точкоины!</p>
+        <!-- ... остальной код ... -->
+    </div>
+</div>
     <div class="container">
         <h1 class="neon-glow">Таблица Валют</h1>
         <div id="error-container"></div>
