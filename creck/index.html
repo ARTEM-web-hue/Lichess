@@ -218,10 +218,85 @@
 
         /* Отступ для основного контента */
         .content-wrapper {
-            margin-top: 60px; /* Примерная высота панели */
+            margin-top: 60px;
             width: 100%;
             display: flex;
             justify-content: center;
+        }
+
+        /* Стили чата */
+        .chat-panel {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            width: 300px;
+            height: calc(100vh - 90px);
+            background: rgba(10, 10, 26, 0.9);
+            border: 1px solid #00ffff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            display: flex;
+            flex-direction: column;
+            z-index: 900;
+            backdrop-filter: blur(5px);
+        }
+
+        .chat-header {
+            padding: 10px;
+            background: linear-gradient(45deg, #1a1a3a, #0a0a1a);
+            border-bottom: 1px solid #00ffff;
+            text-align: center;
+            font-weight: bold;
+            color: #00ffff;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .message {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 6px 10px;
+            border-radius: 8px;
+            max-width: 90%;
+            word-wrap: break-word;
+        }
+
+        .message .user {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #00ffff;
+            background: #0a0a1a;
+            color: #00ffff;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        .chat-input button {
+            background: #00ffff;
+            color: #0a0a1a;
+            border: none;
+            padding: 0 12px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-weight: bold;
         }
 
         @media (max-width: 768px) {
@@ -237,175 +312,23 @@
             .container {
                 width: 95%;
             }
+
+            .chat-panel {
+                width: 90%;
+                max-width: 400px;
+                height: 300px;
+                position: static;
+                margin: 20px auto;
+                order: 1;
+            }
+
+            .content-wrapper {
+                order: 0;
+                margin-top: 0;
+            }
         }
     </style>
 </head>
-    <!-- 💬 Чат сбоку -->
-<div class="chat-panel">
-    <div class="chat-header">💬 Чат</div>
-    <div id="chat-messages" class="chat-messages"></div>
-    <div class="chat-input">
-        <input type="text" id="chat-input" placeholder="Сообщение..." />
-        <button onclick="sendMessage()">➤</button>
-    </div>
-</div>
-
-<!-- Стили чата -->
-<style>
-    .chat-panel {
-        position: fixed;
-        top: 70px;
-        right: 20px;
-        width: 300px;
-        height: calc(100vh - 90px);
-        background: rgba(10, 10, 26, 0.9);
-        border: 1px solid #00ffff;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-        display: flex;
-        flex-direction: column;
-        z-index: 900;
-        backdrop-filter: blur(5px);
-    }
-
-    .chat-header {
-        padding: 10px;
-        background: linear-gradient(45deg, #1a1a3a, #0a0a1a);
-        border-bottom: 1px solid #00ffff;
-        text-align: center;
-        font-weight: bold;
-        color: #00ffff;
-    }
-
-    .chat-messages {
-        flex: 1;
-        overflow-y: auto;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        font-size: 0.9rem;
-    }
-
-    .message {
-        background: rgba(0, 255, 255, 0.1);
-        padding: 6px 10px;
-        border-radius: 8px;
-        max-width: 90%;
-        word-wrap: break-word;
-    }
-
-    .message .user {
-        color: #00ffff;
-        font-weight: bold;
-    }
-
-    .chat-input {
-        display: flex;
-        padding: 10px;
-        border-top: 1px solid rgba(0, 255, 255, 0.3);
-    }
-
-    .chat-input input {
-        flex: 1;
-        padding: 8px;
-        border: 1px solid #00ffff;
-        background: #0a0a1a;
-        color: #00ffff;
-        border-radius: 5px 0 0 5px;
-        outline: none;
-    }
-
-    .chat-input button {
-        background: #00ffff;
-        color: #0a0a1a;
-        border: none;
-        padding: 0 12px;
-        border-radius: 0 5px 5px 0;
-        cursor: pointer;
-        font-weight: bold;
-    }
-</style>
-
-<script>
-    // Сохранение ника в куках
-    function getCookie(name) {
-        let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-        return match ? match[2] : null;
-    }
-
-    function setCookie(name, value, days) {
-        let d = new Date();
-        d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
-        document.cookie = name + "=" + value + ";path=/;expires=" + d.toUTCString();
-    }
-
-    // Отправка сообщения
-    async function sendMessage() {
-        const input = document.getElementById('chat-input');
-        const text = input.value.trim();
-        if (!text) return;
-
-        let user = getCookie('chat_user');
-        if (!user) {
-            user = prompt('Введите ваш ник:', '') || 'Аноним';
-            if (!user) return;
-            setCookie('chat_user', user, 7);
-        }
-
-        const payload = {
-            user: user,
-            text: text,
-            time: new Date().toISOString()
-        };
-
-        await fetch('https://api.github.com/repos/artem-web-hue/Lichess/dispatches', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                event_type: 'new-chat-message',
-                client_payload: payload
-            })
-        });
-
-        addLocalMessage(user, text);
-        input.value = '';
-    }
-
-    // Показать сообщение локально
-    function addLocalMessage(user, text) {
-        const container = document.getElementById('chat-messages');
-        const div = document.createElement('div');
-        div.className = 'message';
-        div.innerHTML = `<span class="user">${user}</span>: ${text}`;
-        container.appendChild(div);
-        container.scrollTop = container.scrollHeight;
-    }
-
-    // Загрузка чата
-    async function loadChat() {
-        try {
-            const res = await fetch('creck/chat.json?t=' + Date.now());
-            const messages = await res.json();
-            const container = document.getElementById('chat-messages');
-            container.innerHTML = '';
-            messages.forEach(msg => {
-                addLocalMessage(msg.user, msg.text);
-            });
-        } catch (e) {
-            console.log('Чат пока пуст');
-        }
-    }
-
-    // Автообновление
-    loadChat();
-    setInterval(loadChat, 30000);
-
-    // Enter
-    document.getElementById('chat-input').addEventListener('keypress', e => {
-        if (e.key === 'Enter') sendMessage();
-    });
-</script>
 <body>
     <!-- Верхняя панель -->
     <div class="top-panel">
@@ -437,6 +360,81 @@
             <div id="last-update" class="last-update"></div>
         </div>
     </div>
+
+    <!-- 💬 Чат сбоку -->
+    <div class="chat-panel">
+        <div class="chat-header">💬 Чат</div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <div class="chat-input">
+            <input type="text" id="chat-input" placeholder="Сообщение..." />
+            <button onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <script>
+        // Сохранение ника в куках
+        function getCookie(name) {
+            let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? match[2] : null;
+        }
+
+        function setCookie(name, value, days) {
+            let d = new Date();
+            d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+            document.cookie = name + "=" + value + ";path=/;expires=" + d.toUTCString();
+        }
+
+        // Отправка сообщения (временно локально)
+        async function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            let user = getCookie('chat_user');
+            if (!user) {
+                user = prompt('Введите ваш ник:', '') || 'Аноним';
+                if (!user) return;
+                setCookie('chat_user', user, 7);
+            }
+
+            addLocalMessage(user, text);
+            input.value = '';
+        }
+
+        // Показать сообщение локально
+        function addLocalMessage(user, text) {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.className = 'message';
+            div.innerHTML = `<span class="user">${user}</span>: ${text}`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Загрузка чата из chat.json
+        async function loadChat() {
+            try {
+                const res = await fetch('creck/chat.json?t=' + Date.now());
+                const messages = await res.json();
+                const container = document.getElementById('chat-messages');
+                container.innerHTML = '';
+                messages.forEach(msg => {
+                    addLocalMessage(msg.user, msg.text);
+                });
+            } catch (e) {
+                console.log('Чат пока пуст или не загружается');
+            }
+        }
+
+        // Автообновление чата
+        loadChat();
+        setInterval(loadChat, 30000);
+
+        // Enter для отправки
+        document.getElementById('chat-input').addEventListener('keypress', e => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
 
     <script>
         let updateInterval;
@@ -554,6 +552,5 @@ StarRunner,Ученик,2345,31`;
             });
         });
     </script>
-</div>
 </body>
 </html>
