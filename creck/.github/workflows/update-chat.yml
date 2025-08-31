@@ -1,0 +1,47 @@
+name: 🔄 Обновить чат
+
+on:
+  repository_dispatch:
+    types: [new-chat-message]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_TOKEN }}
+
+      - name: Подготовить данные
+        run: |
+          mkdir -p creck
+          touch creck/chat.json
+          echo '[]' > creck/chat.json
+
+      - name: Добавить сообщение
+        run: |
+          echo "Добавляем сообщение от ${{ github.event.client_payload.user }}"
+          NEW_MSG=$(jq -n \
+            --arg user "${{ github.event.client_payload.user }}" \
+            --arg text "${{ github.event.client_payload.text }}" \
+            --arg time "${{ github.event.client_payload.time }}" \
+            '{user: $user, text: $text, time: $time}')
+
+          # Читаем старые сообщения
+          if [ -f creck/chat.json ]; then
+            cat creck/chat.json > temp.json
+          else
+            echo "[]" > temp.json
+          fi
+
+          # Добавляем новое, оставляем последние 50
+          jq --slurpfile new "$NEW_MSG" '. += $new | .[-50:]' temp.json > creck/chat.json
+
+      - name: Коммит
+        run: |
+          git config user.name "Chat Bot"
+          git config user.email "bot@localhost"
+          git add creck/chat.json
+          git commit -m "💬 Новое сообщение от ${{ github.event.client_payload.user }}"
+          git push
