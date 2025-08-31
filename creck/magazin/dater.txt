@@ -1,2 +1,7 @@
-Название;Описание;Бананы;Точкоины
-Пиар клуба;Пиар 1 вашего клуба в рассылке;1;300
+atemmax,Ноунейм,241,2
+shahmati_23,ATOM_GM, 146,1
+Cucumber333,,2,1
+roma-provvalionokk,,12,1
+virus_exe-bot,BOT,12,1
+Goldterrificbaby,,74,2
+Feodor-Ryba,PeshkaChess_GM,2,1,
