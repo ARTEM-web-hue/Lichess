@@ -24,8 +24,19 @@
   <div id="board"></div>
   <button id="reset">Начать заново</button>
 
-  <script src="https://unpkg.com/chess.js@0.10.3/chess.js"></script>
-  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
-  <script src="js/game.js"></script>
+<!-- jQuery (обязательно перед chessboard.js) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Шахматная доска -->
+<script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+
+<!-- Стили для доски -->
+<link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
+
+<!-- chess.js -->
+<script src="https://unpkg.com/chess.js@0.10.3/chess.js"></script>
+
+<!-- Твой код -->
+<script src="js/game.js"></script>
 </body>
 </html>
