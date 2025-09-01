@@ -2,49 +2,17 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>PeshkaChess</title>
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Chessboard.js -->
-  <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
-  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
-  <!-- chess.js -->
-  <script src="https://unpkg.com/chess.js@0.10.3/chess.js"></script>
-  <!-- Твой скрипт -->
-  <script src="js/game.js"></script>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    #board {
-      width: 400px;
-      margin: 20px auto;
-      border: 2px solid #333;
-    }
-    .square {
-      position: relative;
-      font-size: 40px;
-      font-weight: bold;
-      text-align: center;
-      line-height: 50px;
-    }
-    .piece { display: none !important; }
-    .white-1e1d7 [data-piece],
-    .black-3c85d [data-piece] {
-      color: #fff;
-    }
-    .black-3c85d [data-piece] {
-      color: #555;
-    }
-  </style>
+  <title>PeshkaChess AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Только chess.js -->
+  <script src="js/chess.js"></script>
 </head>
 <body>
-  <h1>PeshkaChess vs Stockfish (1800)</h1>
+  <h1>PeshkaChess 🆚 Self-Taught Bot</h1>
   <div id="status">Ваш ход (белые)</div>
   <div id="board"></div>
   <button id="reset">Начать заново</button>
+
+  <script src="js/bot.js"></script>
 </body>
 </html>
