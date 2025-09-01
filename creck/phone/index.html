@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>⚡ Магазинчик (моб.)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 10px;
+            background-color: #0a0a1a;
+            font-family: 'Arial', sans-serif;
+            color: #e0e0ff;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #00ff00;
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .loading {
+            text-align: center;
+            color: #00ffff;
+            font-size: 1.1rem;
+            margin: 20px 0;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        .error {
+            text-align: center;
+            color: #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 15px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        /* Адаптивная таблица с неоновым стилем */
+        .table-container {
+            margin: 0 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            border: 1px solid #00ffff;
+        }
+
+        /* Неоновая рамка-пульсация */
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border: 2px solid #00ffff;
+            border-radius: 11px;
+            animation: pulse 2s infinite;
+            opacity: 0.7;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(10, 10, 26, 0.9);
+            min-width: 400px; /* Чтобы гарантировать скролл при узком экране */
+        }
+
+        thead {
+            background: linear-gradient(45deg, #1a1a3a, #0a0a1a);
+        }
+
+        th {
+            padding: 12px 10px;
+            text-align: left;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border-bottom: 2px solid #00ffff;
+            text-shadow: 0 0 5px #00ffff;
+        }
+
+        td {
+            padding: 10px;
+            color: #e0e0ff;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: scale(1.02);
+            transition: transform 0.2s ease;
+        }
+
+        .currency {
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+            font-weight: bold;
+        }
+
+        .last-update {
+            text-align: center;
+            color: #00ffff;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            text-shadow: 0 0 5px #00ffff;
+        }
+
+        .back-button {
+            display: block;
+            width: 90%;
+            margin: 20px auto;
+            padding: 12px;
+            background: linear-gradient(45deg, #00ffff, #0088ff);
+            color: #0a0a1a;
+            text-align: center;
+            font-weight: bold;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            text-decoration: none;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+        }
+
+        /* Для очень маленьких экранов */
+        @media (max-width: 360px) {
+            h1 { font-size: 1.6rem; }
+            .back-button { font-size: 0.9rem; padding: 10px; }
+            th, td { padding: 8px 6px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="neon-glow">⚡ Магазинчик</h1>
+    <p class="subtitle">Купи крутые штуки за бананы и точкоины!</p>
+
+    <div id="error-container"></div>
+    <div id="loading" class="loading">Загрузка товаров...</div>
+
+    <div class="table-container">
+        <div class="neon-border"></div>
+        <table id="shop-table">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Описание</th>
+                    <th>Цена (бананы)</th>
+                    <th>Цена (точкоины)</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Данные загрузятся сюда -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="last-update" class="last-update"></div>
+
+    <a href="https://artem-web-hue.github.io/Lichess/creck/rating" class="back-button">← Назад к таблице</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableBody = document.getElementById('table-body');
+            const loadingElement = document.getElementById('loading');
+            const errorContainer = document.getElementById('error-container');
+            const lastUpdateElement = document.getElementById('last-update');
+
+            function loadData() {
+                loadingElement.style.display = 'block';
+                errorContainer.innerHTML = '';
+
+                fetch(`data.txt?t=${Date.now()}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error(`Ошибка сети: ${response.status}`);
+                        return response.text();
+                    })
+                    .then(data => {
+                        // Парсим data.txt: формат "товар,описание,бананы,точкоины"
+                        const lines = data.trim().split('\n');
+                        const items = [];
+
+                        lines.forEach(line => {
+                            if (line.trim()) {
+                                const [name, desc, bananas, coins] = line.split(',');
+                                items.push({ name, desc, bananas, coins });
+                            }
+                        });
+
+                        // Очищаем и заполняем таблицу
+                        tableBody.innerHTML = '';
+                        items.forEach(item => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${item.name}</td>
+                                <td>${item.desc}</td>
+                                <td class="currency">${item.bananas}</td>
+                                <td class="currency">${item.coins}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+
+                        loadingElement.style.display = 'none';
+                        const now = new Date();
+                        lastUpdateElement.textContent = `Обновлено: ${now.toLocaleTimeString()}`;
+                    })
+                    .catch(error => {
+                        loadingElement.style.display = 'none';
+                        const errorDiv = document.createElement('div');
+                        errorDiv.className = 'error';
+                        errorDiv.textContent = 'Не удалось загрузить товары.';
+                        errorContainer.appendChild(errorDiv);
+
+                        // Показываем демо-данные
+                        const demo = [
+                            ['Неоновый аватар', 'Свечение вокруг профиля', '10', '5000'],
+                            ['VIP-статус', 'Выделение в таблице', '25', '10000']
+                        ];
+                        tableBody.innerHTML = '';
+                        demo.forEach(d => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `<td>${d[0]}</td><td>${d[1]}</td><td class="currency">${d[2]}</td><td class="currency">${d[3]}</td>`;
+                            tableBody.appendChild(row);
+                        });
+                    });
+            }
+
+            // Загружаем при открытии
+            loadData();
+
+            // Обновляем каждые 60 секунд
+            setInterval(loadData, 60000);
+        });
+    </script>
+</body>
+</html>
