@@ -6,7 +6,7 @@ AbardomVladimir,,28,2
 IvanTropin2017,,27,2
 roma-provvalionokk,,12,1
 SPO6009,,12,1
-BOT virus_exe-bot,BOT,12,1
+virus_exe-bot,BOT,12,1
 Feodor-Ryba,PeshkaChess_GM,9,2
 Cucumber333,,2,1
 IVAN_SOTNIKOW,,0,2
