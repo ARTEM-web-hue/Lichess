@@ -12,14 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function initEngine() {
     if (engine) engine.terminate();
 
-    // Используем локальный однопоточный stockfish.js
-    engine = new Worker("js/stockfish.js");
+    // Используем однопоточный stockfish.js (без COEP)
+    engine = new Worker("https://cdn.jsdelivr.net/npm/stockfish@16/stockfish.js");
 
     engine.postMessage("uci");
-
-    // Уровень ~1800
-    engine.postMessage("setoption name Skill Level value 7");
-
+    engine.postMessage("setoption name Skill Level value 7"); // ~1800
     engine.postMessage("isready");
 
     engine.onmessage = function (event) {
@@ -33,9 +30,14 @@ document.addEventListener("DOMContentLoaded", function () {
             to: moveStr.slice(2, 4),
             promotion: moveStr.length > 4 ? moveStr[4] : undefined,
           };
-          game.move(move);
-          board.position(game.fen());
-          updateStatus();
+
+          const result = game.move(move);
+          if (result) {
+            board.position(game.fen());
+            updateStatus();
+          } else {
+            console.error("Invalid move from engine:", moveStr);
+          }
         }
       }
     };
@@ -61,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     board.position(game.fen());
     updateStatus();
+
     setTimeout(makeEngineMove, 600);
   }
 
@@ -79,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (game.in_draw()) {
       statusEl.textContent = "Ничья";
     } else {
-      statusEl.textContent = game.turn() === "w" ? "Ваш ход" : "Ход Stockfish (1800)";
+      statusEl.textContent = game.turn() === "w" ? "Ваш ход" : "Ход Stockfish";
     }
   }
 
@@ -87,22 +90,60 @@ document.addEventListener("DOMContentLoaded", function () {
     game = new Chess(PESHKA_FEN);
     board.position(game.fen());
     updateStatus();
+
     initEngine();
+
     if (game.turn() === "b") {
       setTimeout(makeEngineMove, 600);
     }
   }
 
+  // Инициализация доски
   board = Chessboard(boardEl, {
     position: PESHKA_FEN,
     draggable: true,
+    moveSpeed: "fast",
+    snapSpeed: 100,
     onDragStart: onDragStart,
     onDrop: onDrop,
     onSnapEnd: onSnapEnd,
   });
 
+  // Кнопка
   resetBtn.addEventListener("click", resetGame);
 
+  // Старт
   initEngine();
   resetGame();
 });
+
+// === Кастомизация: добавляем символы в data-piece ===
+function addPieceSymbols() {
+  const squares = document.querySelectorAll(".square");
+  squares.forEach(square => {
+    const piece = square.querySelector(".piece");
+    if (piece) {
+      let symbol = "";
+      const pieceType = piece.classList[1]; // Например: "white-pawn", "black-king"
+      if (pieceType === "white-king") symbol = "♔";
+      else if (pieceType === "black-king") symbol = "♚";
+      else if (pieceType === "white-pawn") symbol = "♙";
+      else if (pieceType === "black-pawn") symbol = "♟";
+
+      square.setAttribute("data-piece", symbol);
+    } else {
+      square.removeAttribute("data-piece");
+    }
+  });
+}
+
+// Вызываем после каждого обновления позиции
+const originalPosition = Chessboard.prototype.position;
+Chessboard.prototype.position = function (fen, doAnimation) {
+  const result = originalPosition.call(this, fen, doAnimation);
+  setTimeout(addPieceSymbols, 100);
+  return result;
+};
+
+// И при старте
+setTimeout(addPieceSymbols, 500);
