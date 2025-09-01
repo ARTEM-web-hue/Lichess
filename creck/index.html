@@ -391,5 +391,14 @@ StarRunner,Ученик,2345,31`;
             });
         });
     </script>
+    <script>
+  // Проверяем, мобильное ли устройство
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  // Если мобильный — перенаправляем на мобильную версию
+  if (isMobile && !window.location.pathname.includes('mobile')) {
+    window.location.href = 'https://artem-web-hue.github.io/Lichess/creck/phone/'; // или другой путь
+  }
+</script>
 </body>
 </html>
