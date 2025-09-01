@@ -2,127 +2,49 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <title>PeshkaChess vs Stockfish (1800)</title>
+  <title>PeshkaChess</title>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Chessboard.js -->
   <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
+  <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+  <!-- chess.js -->
+  <script src="https://unpkg.com/chess.js@0.10.3/chess.js"></script>
+  <!-- Твой скрипт -->
+  <script src="js/game.js"></script>
+
   <style>
-    body { font-family: Arial; text-align: center; padding: 20px; }
-    #board { width: 400px; margin: 20px auto; }
-    #status { font-size: 1.2em; margin: 15px 0; }
-    button {
-      padding: 10px 20px;
-      background: #007cba;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #board {
+      width: 400px;
+      margin: 20px auto;
+      border: 2px solid #333;
+    }
+    .square {
+      position: relative;
+      font-size: 40px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 50px;
+    }
+    .piece { display: none !important; }
+    .white-1e1d7 [data-piece],
+    .black-3c85d [data-piece] {
+      color: #fff;
+    }
+    .black-3c85d [data-piece] {
+      color: #555;
     }
   </style>
 </head>
 <body>
-  <h1>PeshkaChess vs Stockfish</h1>
+  <h1>PeshkaChess vs Stockfish (1800)</h1>
   <div id="status">Ваш ход (белые)</div>
   <div id="board"></div>
   <button id="reset">Начать заново</button>
-
-<!-- jQuery (обязательно перед chessboard.js) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Шахматная доска -->
-<script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
-
-<!-- Стили для доски -->
-<link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css" />
-
-<!-- chess.js -->
-<script src="https://unpkg.com/chess.js@0.10.3/chess.js"></script>
-
-<!-- Твой код -->
-<script src="js/game.js"></script>
 </body>
 </html>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 20px;
-  }
-
-  #board {
-    width: 400px;
-    margin: 20px auto;
-    border: 2px solid #333;
-  }
-
-  /* Скрыть стандартные изображения */
-  .square {
-    position: relative;
-    font-size: 40px;
-    font-weight: bold;
-    line-height: 50px; /* совпадает с размером клетки */
-    text-align: center;
-  }
-
-  /* Убираем background-image у всех клеток */
-  .white-1e1d7,
-  .black-3c85d {
-    background-image: none !important;
-  }
-
-  /* Скрыть img-фигуры */
-  .piece {
-    display: none !important;
-  }
-
-  /* Показываем символы через псевдоэлементы */
-  [data-square="a8"]::before,
-  [data-square="b8"]::before,
-  [data-square="c8"]::before,
-  [data-square="d8"]::before,
-  [data-square="e8"]::before,
-  [data-square="f8"]::before,
-  [data-square="g8"]::before,
-  [data-square="h8"]::before,
-  [data-square="a7"]::before,
-  [data-square="b7"]::before,
-  [data-square="c7"]::before,
-  [data-square="d7"]::before,
-  [data-square="e7"]::before,
-  [data-square="f7"]::before,
-  [data-square="g7"]::before,
-  [data-square="h7"]::before,
-  [data-square="a2"]::before,
-  [data-square="b2"]::before,
-  [data-square="c2"]::before,
-  [data-square="d2"]::before,
-  [data-square="e2"]::before,
-  [data-square="f2"]::before,
-  [data-square="g2"]::before,
-  [data-square="h2"]::before,
-  [data-square="a1"]::before,
-  [data-square="b1"]::before,
-  [data-square="c1"]::before,
-  [data-square="d1"]::before,
-  [data-square="e1"]::before,
-  [data-square="f1"]::before,
-  [data-square="g1"]::before,
-  [data-square="h1"]::before {
-    content: attr(data-piece);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-  }
-
-  /* Цвет символов */
-  .white-1e1d7 [data-piece] {
-    color: #f0f0f0;
-  }
-  .black-3c85d [data-piece] {
-    color: #555;
-  }
-</style>
