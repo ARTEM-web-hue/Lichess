@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function initEngine() {
     if (engine) engine.terminate();
 
-    // Используем однопоточный stockfish.js (без COEP)
-    engine = new Worker("https://cdn.jsdelivr.net/npm/stockfish@16/stockfish.js");
+    // ✅ Локальный worker — не блокируется
+    engine = new Worker("../engine/stockfish.js");
 
     engine.postMessage("uci");
     engine.postMessage("setoption name Skill Level value 7"); // ~1800
@@ -28,15 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
           const move = {
             from: moveStr.slice(0, 2),
             to: moveStr.slice(2, 4),
-            promotion: moveStr.length > 4 ? moveStr[4] : undefined,
+            promotion: moveStr[4] || undefined,
           };
 
           const result = game.move(move);
           if (result) {
             board.position(game.fen());
             updateStatus();
-          } else {
-            console.error("Invalid move from engine:", moveStr);
           }
         }
       }
@@ -109,41 +107,38 @@ document.addEventListener("DOMContentLoaded", function () {
     onSnapEnd: onSnapEnd,
   });
 
-  // Кнопка
   resetBtn.addEventListener("click", resetGame);
+
+  // === Показываем Unicode-символы ===
+  function addSymbols() {
+    document.querySelectorAll(".square").forEach(sq => {
+      sq.removeAttribute("data-piece");
+      const pieceImg = sq.querySelector(".piece");
+      if (pieceImg) {
+        let symbol = "";
+        const className = pieceImg.className;
+        if (className.includes("white-king")) symbol = "♔";
+        else if (className.includes("black-king")) symbol = "♚";
+        else if (className.includes("white-pawn")) symbol = "♙";
+        else if (className.includes("black-pawn")) symbol = "♟";
+
+        if (symbol) sq.setAttribute("data-piece", symbol);
+      }
+    });
+  }
+
+  // Переопределим position, чтобы обновлять символы
+  const orig = Chessboard.prototype.position;
+  Chessboard.prototype.position = function (fen, anim) {
+    const result = orig.call(this, fen, anim);
+    setTimeout(addSymbols, 100);
+    return result;
+  };
+
+  // Первый раз
+  setTimeout(addSymbols, 500);
 
   // Старт
   initEngine();
   resetGame();
 });
-
-// === Кастомизация: добавляем символы в data-piece ===
-function addPieceSymbols() {
-  const squares = document.querySelectorAll(".square");
-  squares.forEach(square => {
-    const piece = square.querySelector(".piece");
-    if (piece) {
-      let symbol = "";
-      const pieceType = piece.classList[1]; // Например: "white-pawn", "black-king"
-      if (pieceType === "white-king") symbol = "♔";
-      else if (pieceType === "black-king") symbol = "♚";
-      else if (pieceType === "white-pawn") symbol = "♙";
-      else if (pieceType === "black-pawn") symbol = "♟";
-
-      square.setAttribute("data-piece", symbol);
-    } else {
-      square.removeAttribute("data-piece");
-    }
-  });
-}
-
-// Вызываем после каждого обновления позиции
-const originalPosition = Chessboard.prototype.position;
-Chessboard.prototype.position = function (fen, doAnimation) {
-  const result = originalPosition.call(this, fen, doAnimation);
-  setTimeout(addPieceSymbols, 100);
-  return result;
-};
-
-// И при старте
-setTimeout(addPieceSymbols, 500);
