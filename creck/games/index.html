@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Шахматы с компьютером</title>
+    <title>Шахматы со Stockfish (локальная версия)</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
     <style>
         body {
@@ -183,6 +183,7 @@
             justify-content: center;
             gap: 10px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
         
         button {
@@ -277,6 +278,45 @@
             margin-bottom: 8px;
         }
         
+        .engine-controls {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(40, 40, 60, 0.8);
+            border-radius: 5px;
+        }
+        
+        .engine-controls label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .engine-controls input {
+            width: 60px;
+            padding: 5px;
+            margin-right: 10px;
+            border-radius: 3px;
+            border: 1px solid #ffd700;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+        
+        .difficulty-selector {
+            margin: 10px 0;
+        }
+        
+        .difficulty-selector label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .difficulty-selector select {
+            padding: 5px;
+            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: 1px solid #ffd700;
+        }
+        
         @media (max-width: 768px) {
             .game-container {
                 flex-direction: column;
@@ -298,8 +338,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Шахматы с компьютером</h1>
-        <p class="subtitle">Сделайте ход, компьютер ответит случайным образом</p>
+        <h1>Шахматы со Stockfish</h1>
+        <p class="subtitle">Сделайте ход, компьютер ответит</p>
         
         <div class="fen-input-container">
             <input type="text" id="fenInput" class="fen-input" 
@@ -313,6 +353,16 @@
             
             <div class="info-panel">
                 <div class="status" id="status">Белые ходят</div>
+                
+                <div class="difficulty-selector">
+                    <label for="difficulty">Сила компьютера:</label>
+                    <select id="difficulty">
+                        <option value="random">Случайные ходы</option>
+                        <option value="easy">Легкий</option>
+                        <option value="medium" selected>Средний</option>
+                        <option value="hard">Сложный</option>
+                    </select>
+                </div>
                 
                 <div class="controls">
                     <button id="newGameBtn">Новая игра</button>
@@ -331,12 +381,11 @@
             <h3>Как играть:</h3>
             <ul>
                 <li>Вы играете белыми фигурами</li>
-                <li>Компьютер играет черными и делает случайные ходы</li>
+                <li>Компьютер играет черными с разной силой</li>
                 <li>Чтобы сделать ход, кликните на фигуру, затем на целевую клетку</li>
                 <li>Или перетащите фигуру на нужную клетку</li>
                 <li>При превращении пешки выберите фигуру из предложенных</li>
-                <li>Цель игры - поставить мат королю противника</li>
-                <li>Введите FEN позицию в поле выше и нажмите "Загрузить позицию"</li>
+                <li>Выберите уровень сложности в выпадающем списке</li>
             </ul>
         </div>
     </div>
@@ -370,10 +419,13 @@
             let promotionPending = null;
             let lastMove = null;
             let positionHistory = [];
+            let computerThinking = false;
+            
             const $board = document.getElementById('board');
             const $status = document.getElementById('status');
             const $moveList = document.getElementById('moveList');
             const $fenInput = document.getElementById('fenInput');
+            const $difficulty = document.getElementById('difficulty');
             
             // Создание доски
             createBoard();
@@ -453,7 +505,7 @@
                 const squareName = square.dataset.square;
                 
                 // Если игра окончена или это фигура противника, отменяем перетаскивание
-                if (game.game_over() || game.turn() === 'b') {
+                if (game.game_over() || game.turn() === 'b' || computerThinking) {
                     e.preventDefault();
                     return;
                 }
@@ -492,7 +544,7 @@
                 e.preventDefault();
                 clearHighlights();
                 
-                if (!selectedSquare) return;
+                if (!selectedSquare || computerThinking) return;
                 
                 const targetSquare = e.target.classList.contains('square') ? 
                     e.target : e.target.parentElement;
@@ -517,8 +569,8 @@
             function handleSquareClick(row, col) {
                 const squareName = String.fromCharCode(97 + col) + (8 - row);
                 
-                // Если игра окончена, ничего не делаем
-                if (game.game_over()) return;
+                // Если игра окончена или компьютер думает, ничего не делаем
+                if (game.game_over() || computerThinking) return;
                 
                 // Если это ход компьютера, ничего не делаем
                 if (game.turn() === 'b') return;
@@ -622,7 +674,7 @@
                 });
             }
             
-            // Выполнение хода
+            // Выполнение хода игрока
             function makeMove(from, to, promotion) {
                 // Сохраняем текущую позицию в истории
                 positionHistory.push(game.fen());
@@ -661,42 +713,182 @@
                 possibleMoves = [];
                 
                 // Ход компьютера
-                if (!game.game_over()) {
-                    window.setTimeout(makeRandomMove, 500);
+                if (!game.game_over() && game.turn() === 'b') {
+                    computerThinking = true;
+                    $status.innerHTML = 'Компьютер думает...';
+                    window.setTimeout(makeComputerMove, 500);
                 }
             }
             
-            // Ход компьютера (случайный)
-            function makeRandomMove() {
-                // Сохраняем текущую позицию в истории
-                positionHistory.push(game.fen());
-                
-                if (game.game_over()) return;
-                
-                const possibleMoves = game.moves();
-                if (possibleMoves.length === 0) return;
-                
-                // Выбор случайного хода
-                const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-                const move = game.move(possibleMoves[randomIndex]);
-                
-                // Проверка на превращение
-                if (move.promotion) {
-                    // Для компьютера всегда превращаем в ферзя
-                    game.undo();
-                    game.move({
-                        from: move.from,
-                        to: move.to,
-                        promotion: 'q'
-                    });
+            // Ход компьютера
+            function makeComputerMove() {
+                if (game.game_over()) {
+                    computerThinking = false;
+                    updateStatus();
+                    return;
                 }
                 
-                lastMove = move;
+                const difficulty = $difficulty.value;
+                let move;
                 
-                // Обновление доски и статуса
-                updateBoard();
-                updateStatus();
-                updateMoveHistory();
+                switch(difficulty) {
+                    case 'random':
+                        move = getRandomMove();
+                        break;
+                    case 'easy':
+                        move = getEasyMove();
+                        break;
+                    case 'medium':
+                        move = getMediumMove();
+                        break;
+                    case 'hard':
+                        move = getHardMove();
+                        break;
+                    default:
+                        move = getRandomMove();
+                }
+                
+                if (move) {
+                    // Сохраняем текущую позицию в истории
+                    positionHistory.push(game.fen());
+                    
+                    // Выполняем ход компьютера
+                    const result = game.move(move);
+                    if (result) {
+                        lastMove = result;
+                        updateBoard();
+                        updateStatus();
+                        updateMoveHistory();
+                    }
+                }
+                
+                computerThinking = false;
+            }
+            
+            // Получение случайного хода
+            function getRandomMove() {
+                const moves = game.moves();
+                if (moves.length === 0) return null;
+                
+                const randomIndex = Math.floor(Math.random() * moves.length);
+                return moves[randomIndex];
+            }
+            
+            // Получение "легкого" хода (случайный ход, но с предпочтением захвата)
+            function getEasyMove() {
+                const moves = game.moves({verbose: true});
+                if (moves.length === 0) return null;
+                
+                // Ищем ходы с захватом
+                const captureMoves = moves.filter(move => move.captured);
+                if (captureMoves.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * captureMoves.length);
+                    return captureMoves[randomIndex].san;
+                }
+                
+                // Если нет захватов, делаем случайный ход
+                return getRandomMove();
+            }
+            
+            // Получение "среднего" хода (предпочтение захватам и развитию)
+            function getMediumMove() {
+                const moves = game.moves({verbose: true});
+                if (moves.length === 0) return null;
+                
+                // Ищем ходы с захватом
+                const captureMoves = moves.filter(move => move.captured);
+                if (captureMoves.length > 0) {
+                    // Предпочтение захвату более ценных фигур
+                    captureMoves.sort((a, b) => {
+                        const pieceValues = {p: 1, n: 3, b: 3, r: 5, q: 9};
+                        const valueA = pieceValues[a.captured] || 0;
+                        const valueB = pieceValues[b.captured] || 0;
+                        return valueB - valueA;
+                    });
+                    return captureMoves[0].san;
+                }
+                
+                // Ищем ходы развития (кони, слоны, ферзь)
+                const developmentMoves = moves.filter(move => 
+                    move.piece === 'n' || move.piece === 'b' || move.piece === 'q'
+                );
+                if (developmentMoves.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * developmentMoves.length);
+                    return developmentMoves[randomIndex].san;
+                }
+                
+                // Если нет хороших ходов, делаем случайный
+                return getRandomMove();
+            }
+            
+            // Получение "сложного" хода (минимакс с простой оценкой)
+            function getHardMove() {
+                const moves = game.moves({verbose: true});
+                if (moves.length === 0) return null;
+                
+                // Простая оценочная функция
+                function evaluateBoard() {
+                    const board = game.board();
+                    let score = 0;
+                    const pieceValues = {p: 1, n: 3, b: 3, r: 5, q: 9, k: 0};
+                    
+                    for (let row = 0; row < 8; row++) {
+                        for (let col = 0; col < 8; col++) {
+                            const piece = board[row][col];
+                            if (piece) {
+                                const value = pieceValues[piece.type] || 0;
+                                score += (piece.color === 'w' ? -value : value);
+                            }
+                        }
+                    }
+                    
+                    return score;
+                }
+                
+                // Минимакс с глубиной 2
+                function minimax(depth, isMaximizing) {
+                    if (depth === 0 || game.game_over()) {
+                        return evaluateBoard();
+                    }
+                    
+                    const moves = game.moves();
+                    if (isMaximizing) {
+                        let maxEval = -Infinity;
+                        for (let move of moves) {
+                            game.move(move);
+                            const evaluation = minimax(depth - 1, false);
+                            game.undo();
+                            maxEval = Math.max(maxEval, evaluation);
+                        }
+                        return maxEval;
+                    } else {
+                        let minEval = Infinity;
+                        for (let move of moves) {
+                            game.move(move);
+                            const evaluation = minimax(depth - 1, true);
+                            game.undo();
+                            minEval = Math.min(minEval, evaluation);
+                        }
+                        return minEval;
+                    }
+                }
+                
+                // Находим лучший ход
+                let bestMove = null;
+                let bestValue = -Infinity;
+                
+                for (let move of moves) {
+                    game.move(move);
+                    const value = minimax(2, false);
+                    game.undo();
+                    
+                    if (value > bestValue) {
+                        bestValue = value;
+                        bestMove = move;
+                    }
+                }
+                
+                return bestMove || getRandomMove();
             }
             
             // Обновление доски
@@ -762,8 +954,10 @@
                     updateMoveHistory();
                     
                     // Ход компьютера
-                    if (!game.game_over()) {
-                        window.setTimeout(makeRandomMove, 500);
+                    if (!game.game_over() && game.turn() === 'b') {
+                        computerThinking = true;
+                        $status.innerHTML = 'Компьютер думает...';
+                        window.setTimeout(makeComputerMove, 500);
                     }
                 }
             }
@@ -828,6 +1022,7 @@
                     possibleMoves = [];
                     promotionPending = null;
                     document.getElementById('promotionModal').style.display = 'none';
+                    computerThinking = false;
                     createBoard();
                     updateStatus();
                     updateMoveHistory();
@@ -846,9 +1041,17 @@
                         possibleMoves = [];
                         promotionPending = null;
                         document.getElementById('promotionModal').style.display = 'none';
+                        computerThinking = false;
                         createBoard();
                         updateStatus();
                         updateMoveHistory();
+                        
+                        // Если ход черных, делаем ход компьютера
+                        if (game.turn() === 'b' && !game.game_over()) {
+                            computerThinking = true;
+                            $status.innerHTML = 'Компьютер думает...';
+                            window.setTimeout(makeComputerMove, 500);
+                        }
                     } catch (e) {
                         alert('Неверный формат FEN позиции');
                     }
@@ -865,6 +1068,7 @@
                 possibleMoves = [];
                 promotionPending = null;
                 document.getElementById('promotionModal').style.display = 'none';
+                computerThinking = false;
                 createBoard();
                 updateStatus();
                 updateMoveHistory();
