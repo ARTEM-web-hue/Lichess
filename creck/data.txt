@@ -1,7 +1,7 @@
 atemmax,Ноунейм,333,3
 Nathanael01,,247,1
 Vyga2012,,187,1
-Vyga2012,,163,1
+VOMINHNHAT2012,,163,1
 zooz-Zerk,,163,1
 shahmati_23,ATOM_GM,146,1
 mtakvorian,,134,1
