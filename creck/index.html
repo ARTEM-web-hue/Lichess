@@ -10,16 +10,18 @@
             padding: 0;
             background-color: #0a0a1a;
             font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: block; /* Изменено с flex на block */
             min-height: 100vh;
-            overflow: hidden;
+            overflow-y: auto; /* Разрешаем вертикальную прокрутку */
+            padding-top: 60px; /* Отступ для фиксированной панели */
+            box-sizing: border-box;
         }
 
         .container {
             width: 90%;
             max-width: 1000px;
+            margin: 0 auto; /* Центрируем контейнер */
+            padding-bottom: 50px; /* Добавляем отступ внизу */
         }
 
         h1 {
@@ -186,6 +188,7 @@
             z-index: 1000;
             display: flex;
             justify-content: flex-end;
+            gap: 10px;
         }
 
         /* Стили для кнопки */
@@ -204,6 +207,7 @@
             box-shadow: 0 0 5px #00ffff, 0 0 10px #0088ff;
             transition: all 0.3s ease;
             letter-spacing: 1px;
+            white-space: nowrap;
         }
 
         .balance-button:hover {
@@ -214,14 +218,6 @@
 
         .balance-button:active {
             transform: scale(0.98);
-        }
-
-        /* Отступ для основного контента */
-        .content-wrapper {
-            margin-top: 60px; /* Примерная высота панели */
-            width: 100%;
-            display: flex;
-            justify-content: center;
         }
 
         @media (max-width: 768px) {
@@ -237,6 +233,11 @@
             .container {
                 width: 95%;
             }
+            
+            .top-panel {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -250,29 +251,27 @@
     </div>
 
     <!-- Основной контент -->
-    <div class="content-wrapper">
-        <div class="container">
-            <h1 class="neon-glow">Таблица Валют</h1>
-            <div id="error-container"></div>
-            <div id="loading" class="loading">Загрузка данных...</div>
-            <div class="table-container">
-                <div class="neon-border"></div>
-                <table id="currency-table">
-                    <thead>
-                        <tr>
-                            <th>Ник</th>
-                            <th>Звание</th>
-                            <th>Точкоинов</th>
-                            <th>Бананы</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        <!-- Данные будут загружены сюда -->
-                    </tbody>
-                </table>
-            </div>
-            <div id="last-update" class="last-update"></div>
+    <div class="container">
+        <h1 class="neon-glow">Таблица Валют</h1>
+        <div id="error-container"></div>
+        <div id="loading" class="loading">Загрузка данных...</div>
+        <div class="table-container">
+            <div class="neon-border"></div>
+            <table id="currency-table">
+                <thead>
+                    <tr>
+                        <th>Ник</th>
+                        <th>Звание</th>
+                        <th>Точкоинов</th>
+                        <th>Бананы</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Данные будут загружены сюда -->
+                </tbody>
+            </table>
         </div>
+        <div id="last-update" class="last-update"></div>
     </div>
 
     <script>
@@ -391,6 +390,5 @@ StarRunner,Ученик,2345,31`;
             });
         });
     </script>
-
 </body>
 </html>
