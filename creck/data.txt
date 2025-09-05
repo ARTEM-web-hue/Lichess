@@ -1,5 +1,5 @@
 mafin-v-tymane,Ноунейм 2,87,2
-atemmax,Ноунейм,636,8
+atemmax,Ноунейм,685,8
 Cucumber333,,4,1
 shahmati_23,ATOM_GM,208,1
 virus_exe-bot,BOT,12,2
@@ -10,5 +10,6 @@ IvanTropin2017,,27,1
 AbardomVladimir,,28,1
 SPO6009,,18,1
 ertgrl_222,,3,1
+LegendOfKazan,,2,1
 Pln012,,2,1
 GOrInkO,,1,1
