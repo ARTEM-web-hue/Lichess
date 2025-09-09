@@ -9,7 +9,7 @@ Goldterrificbaby,,74,3
 Feodor-Ryba,PeshkaChess_GM,59,3
 IvanTropin2017,,27,1
 AbardomVladimir,,28,1
-SPO6009,,80,1
+SPO6009,Racing_Kings_GM,80,1
 ertgrl_222,,3,1
 LegendOfKazan,,2,1
 Pln012,,2,1
