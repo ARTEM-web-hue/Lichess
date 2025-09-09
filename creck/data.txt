@@ -2,7 +2,7 @@ atemmax,Ноунейм,1230,8
 mafin-v-tymane,Ноунейм 2,87,2
 Cucumber333,,4,1
 shahmati_23,ATOM_GM,208,1
-GOrInkO,,376,1
+GOrInkO,Ускоритель,276,1
 virus_exe-bot,BOT,12,2
 roma-provvalionokk,,43,1
 Goldterrificbaby,,74,3
