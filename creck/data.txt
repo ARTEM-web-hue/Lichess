@@ -1,17 +1,22 @@
-atemmax,Ноунейм,1230,8
+atemmax,Ноунейм,1469,8
 mafin-v-tymane,Ноунейм 2,87,2
 Cucumber333,,4,1
 shahmati_23,ATOM_GM,208,1
-GOrInkO,Ускоритель x3,276,1
-virus_exe-bot,BOT,12,2
-roma-provvalionokk,,43,1
+GOrInkO,Ускоритель x3,657,1
+virus_exe-bot,BOT,39,2
+roma-provvalionokk,,98,1
 Goldterrificbaby,,74,3
 Feodor-Ryba,PeshkaChess_GM,59,3
 IvanTropin2017,,27,1
 AbardomVladimir,,28,1
-SPO6009,Racing_Kings_GM,80,1
+SPO6009,Racing_Kings_GM,114,1
 ertgrl_222,,3,1
 LegendOfKazan,,2,1
 Pln012,,2,1
 glebunator2017,,3,1
 Suren151,ATOM_GM,НОУТБУК,1
+Hanter_2017,,410,1
+TB-OFICIALL-ACCOUNT,,38,1
+Bot_Nikto,BOT,27,1
+Miroslava535,,88,1
+Evil_crow,,2,1
