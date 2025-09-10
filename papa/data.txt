@@ -1,2 +1,2 @@
 atemmax,,5,0
-CHIPI_CHIPI228;Legends;456,0
+CHIPI_CHIPI228 ;Legends 456,0
