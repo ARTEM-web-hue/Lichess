@@ -23,4 +23,4 @@ Evil_crow,,2,1
 vlobov,PeshkaChess_GM,3,2
 CHIPICHIPI228,,1,2
 BlAcKcAt888,,0,2
-Evil_crow
+Evil_crow,,0,2
