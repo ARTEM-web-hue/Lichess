@@ -1,10 +1,10 @@
-atemmax,Ноунейм,1622,9
+atemmax,Ноунейм,1705,9
 mafin-v-tymane,Ноунейм 2,90,3
 Cucumber333,,4,1
 shahmati_23,ATOM_GM,222,1
-GOrInkO,Ускоритель x3,657,2
+GOrInkO,,657,2
 virus_exe-bot,BOT,39,2
-roma-provvalionokk,,146,1
+roma-provvalionokk,,148,1
 Goldterrificbaby,,74,3
 Feodor-Ryba,PeshkaChess_GM,59,3
 IvanTropin2017,,27,1
