@@ -6,7 +6,7 @@ GOrInkO,,657,2
 virus_exe-bot,BOT,39,2
 roma-provvalionokk,,148,1
 Goldterrificbaby,,74,3
-Feodor-Ryba,PeshkaChess_GM,59,3
+Feodor-Ryba,PeshkaChess_GM,109,3
 IvanTropin2017,,27,1
 AbardomVladimir,,28,1
 SPO6009,Racing_Kings_GM,120,2
