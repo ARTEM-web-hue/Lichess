@@ -1,0 +1,91 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Правила лиги и положение</title>
+        <link href="https://fonts.googleapis.com/css2?family=Rubik+Moonrocks&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <button id="Eng">
+            English
+        </button>
+        <h1>Правила лиги и положение</h1><hr>
+        <h2>Положение</h2>
+        <table>
+            <tr>
+                <td>Клуб</td>
+                <td>Множитель</td>
+                <td>Очки</td>
+            </tr>
+            <tr>
+                <td>̇ ̇ ̇</td>
+                <td>x1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>Шахматные пушки.</td>
+                <td>x1</td>
+                <td>0</td>
+            </tr>
+        </table>
+        <h2>Правила</h2>
+        <div class="ff">
+            <p>
+                <h3>1.</h3>1 - 19 месту дается множитель. Он зависит от того сколько раз подряд команда попала в топ 10. Если первый раз - x1.2 второй - x1.4 третий - 1.6 и т.д. Максимальный множитель - x2.5 посе него множитель становится x1.1 и может опять добавлятся.<br>
+                <h3>2.</h3>1 очко - 1 балл но на баллы действуют множители (см. пункт 1)<br>
+                <h3>3.</h3>За читерство множитель обнуляется, а за повторное читерство в одной команде исключение из турнира.<br>
+            <p>
+        </div>
+    </body>
+</html>
+<style>
+    .ff {
+        font-family: "Rubik Moonrocks";
+    }
+    html {
+    font-family: sans-serif;
+    }
+
+    table {
+    border-collapse: collapse;
+    border: 2px solid rgb(0, 0, 0);
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    }
+
+    td, th {
+    border: 1px solid rgb(0, 225, 255);
+    padding: 10px 20px;
+    }
+
+    th {
+    background-color: rgb(173, 111, 158);
+    }
+
+    td {
+    text-align: center;
+    }
+
+    tr:nth-child(even) td {
+    background-color: rgb(250,250,250);
+    }
+
+    tr:nth-child(odd) td {
+    background-color: rgb(245,245,245);
+    }
+
+    caption {
+    padding: 10px;
+    }
+    #Eng {
+        width: 80px;
+        height: 55px;
+        font-size: 20px;
+        background: rgba(185, 200, 52, 0.241);
+    }
+</style>
+<script>
+    const button=document.querySelector("#Eng")
+    button.addEventListener('click', () => {
+        window.open("file:///C:/Users/artem/Desktop/Lichess-code/eng/index.html");
+    });
+</script>
