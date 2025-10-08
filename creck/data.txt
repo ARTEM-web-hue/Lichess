@@ -1,22 +1,22 @@
-atemmax,Ноунейм,1705,9
-mafin-v-tymane,Ноунейм 2,90,3
+atemmax,Ноунейм,1884,9
+mafin-v-tymane,Ноунейм 2,116,3
 Cucumber333,,4,1
 shahmati_23,ATOM_GM,222,1
 GOrInkO,,13,2
 virus_exe-bot,BOT,39,2
-roma-provvalionokk,,148,1
+roma-provvalionokk,,179,1
 Goldterrificbaby,,74,3
 Feodor-Ryba,PeshkaChess_GM,109,3
 IvanTropin2017,,27,1
 AbardomVladimir,,28,1
-SPO6009,Racing_Kings_GM и Защитник Racing_Kings,120,2
+SPO6009,Racing_Kings_GM и Защитник Racing_Kings,124,2
 ertgrl_222,,3,1
 LegendOfKazan,,2,1
 Pln012,,2,1
 glebunator2017,,5,2
 Suren151,ATOM_GM,0,1
 Hanter_2017,,410,1
-TB-OFICIALL-ACCOUNT,,156,2
+TB-OFICIALL-ACCOUNT,,168,2
 Bot_Nikto,BOT,27,1
 Miroslava535,UltrAZerKcHeSs_GM,313,2
 Evil_crow,,2,1
@@ -24,5 +24,8 @@ vlobov,PeshkaChess_GM,3,2
 CHIPICHIPI228,,1,2
 BlAcKcAt888,,0,2
 Evil_crow,,0,2
+VovaDrago,,8,1
 AlvarolvlCA,,113,1
 Margarira_2017,ФОРЕЛЬ!!!,4,1
+Emil_DD,,2,1
+NikitaSedler,,4,1
