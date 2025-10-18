@@ -1,3 +1,4 @@
 atemmax,,5,0
 CHIPI_CHIPI228,НоуНейм,921,0
 SISISI,,2,0
+feritdemir,,3,0
