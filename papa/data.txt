@@ -3,3 +3,5 @@ CHIPI_CHIPI228,НоуНейм,921,0
 SISI5I,,2,0
 feritdemir,,35,0
 SanyaV,,110,0
+DanSemDan,,46,0
+DarkOnBullet,,2,0
