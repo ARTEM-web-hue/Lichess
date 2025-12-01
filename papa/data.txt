@@ -5,5 +5,5 @@ feritdemir,,35,0
 SanyaV,,110,0
 DanSemDan,,46,0
 DarkOnBullet,,32,0
-Daniil_Shmatko,,6,0
-vaniaches,,36,0
+Daniil_Shmatko,,19,0
+vaniaches,,38,0
