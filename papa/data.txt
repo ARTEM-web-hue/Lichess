@@ -3,7 +3,7 @@ CHIPI_CHIPI228,аДмИнаСтРотИвНыЙ_НоуНейм,999999999,9999999
 SISI5I,,2,0
 feritdemir,,35,0
 SanyaV,,110,0
-DanSemDan,,46,0
+DanSemDan,,80,0
 DarkOnBullet,,32,0
 Daniil_Shmatko,,90,0
-vaniaches,,38,0
+vaniaches,,74,0
