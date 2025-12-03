@@ -8,3 +8,4 @@ DarkOnBullet,,32,0
 Daniil_Shmatko,,90,0
 vaniaches,,74,0
 Artemiy-Novikov,,4,0
+Rotsov,,35,0
