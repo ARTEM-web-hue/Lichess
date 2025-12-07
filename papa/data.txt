@@ -2,7 +2,7 @@ atemmax,,5,0
 CHIPI_CHIPI228,аДмИнаСтРотИвНыЙ_НоуНейм,999999999999,6767676767
 SISI5I,неактивный,2,0
 feritdemir,,35,0
-SanyaV,,122,0
+SanyaV,,122,5
 DanSemDan,п0м0шнNк п0 тNтyлAм,274,0
 DarkOnBullet,,32,0
 Daniil_Shmatko,,90,0
