@@ -4,7 +4,7 @@ SISI5I,неактивный,2,0
 feritdemir,,35,0
 SanyaV,,124,5
 DanSemDan,ЛеgEnDarnый._.п0вЕлNтEлЬ тЬмbl,402,13
-DarkOnBullet,,32,0
+DarkOnBullet,,37,0
 Daniil_Shmatko,,90,0
 vaniaches,,74,0
 Artemiy-Novikov,,4,0
@@ -12,6 +12,7 @@ Rotsov,,129,0
 AndrewS13,,25,0
 akheyfets,,5,0
 Berserker_bobra,,180,0
-NikBel12,,137,0
+NikBel12,,137,10
 Hap_RaB52,,7,0
-Dima_molodec,Н0В0g0днRR ШаnкA,67,10
+Dima_molodec,Н0В0g0днRR ШаnкA,67,11
+Nikitosik1708,,0,5
